@@ -6,6 +6,7 @@ const Koa = require('koa')
 const cors = require('kcors')
 const log = require('./logger')
 const api = require('./api')
+const serve = require('koa-static')
 
 // Setup Koa app
 const app = new Koa()
@@ -36,6 +37,8 @@ app.use(async (ctx, next) => {
 
 // Mount routes
 app.use(api.routes(), api.allowedMethods())
+
+app.use(serve('./public'));
 
 // Start the app
 app.listen(port, () => { log.info(`Server listening at port ${port}`) })
